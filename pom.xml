@@ -10,16 +10,11 @@
     </parent>
     <groupId>tn.esprit</groupId>
     <artifactId>eventsProject</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <name>eventsProject</name>
     <description>eventsProject</description>
-    <scm>
-        <connection>scm:svn:http://somerepository.com/svn_repo/trunk</connection>
-        <developerConnection>scm:svn:https://somerepository.com/svn_repo/trunk</developerConnection>
-        <url>http://somerepository.com/view.cgi</url>
-    </scm>
     <properties>
         <java.version>1.8</java.version>
+       <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
     <dependencies>
 
@@ -53,6 +48,18 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+
+<dependency>
+	<groupId>io.springfox</groupId>
+		<artifactId>springfox-boot-starter</artifactId>
+		<version>3.0.0</version>
+</dependency>
+<dependency>
+	<groupId>io.springfox</groupId>
+		<artifactId>springfox-swagger-ui</artifactId>
+		<version>3.0.0</version>
+		</dependency>
     </dependencies>
 
     <build>
