@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=achatdb
+      - MYSQL_HOST=mysqldb
+    networks:
+      - net-mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  event-backend-app:
+    container_name: event-backend-app
+    depends_on:
+      - mysqldb
+    image: ghadaaoun/eventback:1.1
+    restart: on-failure
+    ports:
+      - "8089:8089"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/eventsProject?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpass
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL5Dialect
+      - SERVER_SERVLET_CONTEXT_PATH=/SpringMVC
+    stdin_open: true
+    tty: true
+    networks:
+      - net-mysql
+volumes:
+  mysql_data:
+networks:
+  net-mysql:
+    driver: bridge
+    attachable: true
